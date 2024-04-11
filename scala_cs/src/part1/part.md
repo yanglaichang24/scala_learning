@@ -434,3 +434,6 @@ package bobsrockets{
 上述例子中，类 Navigator 被标记为 private[bobsrockets] 就是说这个类对包含在 bobsrockets 包里的所有的类和对象可见。
 
 比如说，从 Vehicle 对象里对 Navigator 的访问是被允许的，因为对象 Vehicle 包含在包 launch 中，而 launch 包在 bobsrockets 中，相反，所有在包 bobsrockets 之外的代码都不能访问类 Navigator。
+
+PRE >> [ HOME ](../../scala-learning.md)
+NEXT >> [运算符](../part2/part.md)
