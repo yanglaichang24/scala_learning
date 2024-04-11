@@ -48,6 +48,18 @@ object Part1 {
     printf("%.3f,%d,%s ",floatVal,intVal,stringVal)
 
     //其他方法
+    val h = g.endsWith("xx")
+    val j = g.equals("xxx")
+    val k = g.compareTo("ttt")
+    val l = g.split("xxx")
+    var m = g.matches("[0-9]+")
+
+
+    // 字符串插值
+    println(s"这是${g}")
+    println(s"这是${stringVal}")
+
+    //正则匹配
 
 
 
