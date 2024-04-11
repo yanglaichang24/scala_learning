@@ -1,4 +1,6 @@
 Go to [ HOME ](../../scala-learning.md)
+---
+
 <h1>1.Scala 基础语法</h1>
 
 如果你之前是一名 Java 程序员，并了解 Java 语言的基础知识，那么你能很快学会 Scala 的基础语法。
@@ -145,18 +147,18 @@ Scala 与 Java有着相同的数据类型，下表列出了 Scala 支持的数�
 |---|---|	
 |Byte|8位有符号补码整数。数值区间为 -128 到 127|
 |Short|	16位有符号补码整数。数值区间为 -32768 到 32767|
-|Int	|32位有符号补码整数。数值区间为 -2147483648 到 2147483647|
-|Long	|64位有符号补码整数。数值区间为 -9223372036854775808 到 9223372036854775807|
-|Float	|32 位, IEEE 754 标准的单精度浮点数|
-|Double	|64 位 IEEE 754 标准的双精度浮点数|
-|Char	|16位无符号Unicode字符, 区间值为 U+0000 到 U+FFFF|
-|String	|字符序列|
-|Boolean|	true或false|
-|Unit	|表示无值，和其他语言中void等同。用作不返回任何结果的方法的结果类型。Unit只有一个实例值，写成()。|
-|Null	|null 或空引用|
-|Nothing|	Nothing类型在Scala的类层级的最底端；它是任何其他类型的子类型。|
-|Any	|Any是所有其他类的超类|
-|AnyRef	|AnyRef类是Scala里所有引用类(reference class)的基类|
+|Int|32位有符号补码整数。数值区间为 -2147483648 到 2147483647|
+|Long|64位有符号补码整数。数值区间为 -9223372036854775808 到 9223372036854775807|
+|Float|32 位, IEEE 754 标准的单精度浮点数|
+|Double|64 位 IEEE 754 标准的双精度浮点数|
+|Char|16位无符号Unicode字符, 区间值为 U+0000 到 U+FFFF|
+|String|字符序列|
+|Boolean|true或false|
+|Unit|表示无值，和其他语言中void等同。用作不返回任何结果的方法的结果类型。Unit只有一个实例值，写成()。|
+|Null|null 或空引用|
+|Nothing|Nothing类型在Scala的类层级的最底端；它是任何其他类型的子类型。|
+|Any|Any是所有其他类的超类|
+|AnyRef|AnyRef类是Scala里所有引用类(reference class)的基类|
 
 上表中列出的数据类型都是对象，也就是说scala没有java中的原生类型。在scala是可以对数字等基础类型调用方法的。
 
@@ -273,5 +275,162 @@ Hello    World
 ```
 <h1>3.变量/常量</h1>
 
+变量是一种使用方便的占位符，用于引用计算机内存地址，变量创建后会占用一定的内存空间。
+
+基于变量的数据类型，操作系统会进行内存分配并且决定什么将被储存在保留内存中。因此，通过给变量分配不同的数据类型，你可以在这些变量中存储整数，小数或者字母。
+
+## 变量声明
+在学习如何声明变量与常量之前，我们先来了解一些变量与常量。
+
++ 一、变量： 在程序运行过程中其值可能发生改变的量叫做变量。如：时间，年龄。
++ 二、常量 在程序运行过程中其值不会发生变化的量叫做常量。如：数值 3，字符'A'。
+
+在 Scala 中，使用关键词 "var" 声明变量，使用关键词 "val" 声明常量。
+
+声明变量实例如下：
+```
+var myVar : String = "Foo"
+var myVar : String = "Too"
+```
+以上定义了变量 myVar，我们可以修改它。
+
+声明常量实例如下：
+```
+val myVal : String = "Foo"
+```
+以上定义了常量 myVal，它是不能修改的。如果程序尝试修改常量 myVal 的值，程序将会在编译时报错。
+
+### 变量类型声明
+变量的类型在变量名之后等号之前声明。定义变量的类型的语法格式如下：
+
+> var VariableName : DataType [=  Initial Value]
+
+或
+
+> val VariableName : DataType [=  Initial Value]
+
+## 变量类型引用
+在 Scala 中声明变量和常量不一定要指明数据类型，在没有指明数据类型的情况下，其数据类型是通过变量或常量的初始值推断出来的。
+
+所以，如果在没有指明数据类型的情况下声明变量或常量必须要给出其初始值，否则将会报错。
+```
+var myVar = 10;
+val myVal = "Hello, Scala!";
+```
+以上实例中，myVar 会被推断为 Int 类型，myVal 会被推断为 String 类型。
+
+### Scala 多个变量声明
+Scala 支持多个变量的声明：
+```
+val xmax, ymax = 100  // xmax, ymax都声明为100
+```
+如果方法返回值是元组，我们可以使用 val 来声明一个元组：
+```
+scala> val pa = (40,"Foo")
+pa: (Int, String) = (40,Foo)
+```
 
 <h1>4.访问修饰符</h1>
+
+Scala 访问修饰符基本和Java的一样，分别有：private，protected，public。
+
+如果没有指定访问修饰符，默认情况下，Scala 对象的访问级别都是 public。
+
+Scala 中的 private 限定符，比 Java 更严格，在嵌套类情况下，外层类甚至不能访问被嵌套类的私有成员。
+
+## 私有(Private)成员
+用 private 关键字修饰，带有此标记的成员仅在包含了成员定义的类或对象内部可见，同样的规则还适用内部类。
+
+实例
+```
+class Outer{
+    class Inner{
+        private def f(){
+            println("f")
+        }
+        class InnerMost{
+            f() // 正确
+        }
+    }
+    (new Inner).f() //错误
+}
+```
+
+(new Inner).f( ) 访问不合法是因为 f 在 Inner 中被声明为 private，而访问不在类 Inner 之内。
+
+但在 InnerMost 里访问 f 就没有问题的，因为这个访问包含在 Inner 类之内。
+
+Java 中允许这两种访问，因为它允许外部类访问内部类的私有成员。
+
+### 保护(Protected)成员
+在 scala 中，对保护（Protected）成员的访问比 java 更严格一些。因为它只允许保护成员在定义了该成员的的类的子类中被访问。而在java中，用 protected关键字修饰的成员，除了定义了该成员的类的子类可以访问，同一个包里的其他类也可以进行访问。
+
+实例
+```
+package p {
+    class Super {
+        protected def f() {println("f")}
+    }
+    class Sub extends Super {
+        f()
+    }
+    class Other {
+        (new Super).f() //错误
+    }
+}
+```
+上例中，Sub 类对 f 的访问没有问题，因为 f 在 Super 中被声明为 protected，而 Sub 是 Super 的子类。相反，Other 对 f 的访问不被允许，因为 other 没有继承自 Super。而后者在 java 里同样被认可，因为 Other 与 Sub 在同一包里。
+
+### 公共(Public)成员
+
+Scala 中，如果没有指定任何的修饰符，则默认为 public。这样的成员在任何地方都可以被访问。
+
+实例
+```
+class Outer {
+   class Inner {
+      def f() { println("f") }
+      class InnerMost {
+         f() // 正确
+      }
+   }
+   (new Inner).f() // 正确因为 f() 是 public
+}
+```
+## 作用域保护
+
+Scala中，访问修饰符可以通过使用限定词强调。格式为:
+```
+private[x] 
+
+或 
+
+protected[x]
+```
+这里的x指代某个所属的包、类或单例对象。如果写成private[x],读作"这个成员除了对[…]中的类或[…]中的包中的类及它们的伴生对像可见外，对其它所有类都是private。
+
+这种技巧在横跨了若干包的大型项目中非常有用，它允许你定义一些在你项目的若干子包中可见但对于项目外部的客户却始终不可见的东西。
+
+实例
+```
+package bobsrockets{
+    package navigation{
+        private[bobsrockets] class Navigator{
+         protected[navigation] def useStarChart(){}
+         class LegOfJourney{
+             private[Navigator] val distance = 100
+             }
+            private[this] var speed = 200
+            }
+        }
+        package launch{
+        import navigation._
+        object Vehicle{
+        private[launch] val guide = new Navigator
+        }
+    }
+}
+```
+上述例子中，类 Navigator 被标记为 private[bobsrockets] 就是说这个类对包含在 bobsrockets 包里的所有的类和对象可见。
+
+比如说，从 Vehicle 对象里对 Navigator 的访问是被允许的，因为对象 Vehicle 包含在包 launch 中，而 launch 包在 bobsrockets 中，相反，所有在包 bobsrockets 之外的代码都不能访问类 Navigator。
